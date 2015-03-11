@@ -1,3 +1,9 @@
+## My optimization steps goes through the following:
+1- Decrease images resolution to just fit to their places dimensions in html elements document.
+2- Minify css, js, html.
+3- Compress images(png/jpg) with considerations of saving images quality.
+4- Reorganize and modify some html elements and attributes as possible as Google SpeedTest recommends.
+
 ## Website Performance Optimization portfolio project
 
 Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
