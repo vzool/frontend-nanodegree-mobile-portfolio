@@ -1,8 +1,8 @@
 ## My optimization steps goes through the following:
 
 1. Decrease images resolution to just fit to their places dimensions in html elements document.
-2. Minify css, js, html.
-3. Compress images(png/jpg) with considerations of saving images quality.
+2. Minify CSS, JS & HTML.
+3. Compress images(PNG/JPG) with considerations of saving images quality.
 4. Reorganize and modify some html elements and attributes as possible as [Google SpeedTest](https://developers.google.com/speed/pagespeed/insights/) recommends.
 
 ## Website Performance Optimization portfolio project
