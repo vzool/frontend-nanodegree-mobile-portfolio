@@ -12,7 +12,11 @@ My optimization steps goes through two parts in whole project
 
 #### Second: Optimization for pizza.html & main.js:
 1. I did anything in Second Part just like I did it in First Part too.
-2.
+
+2. In changePizzaSizes function I moved three lines which are (var dx = ...), (var newwidth = ...) and (var pizzasDiv = ...) out of the loop, after these little modifications function did same actions and effects with maximum reduce in processing time.
+
+I think there is no need to repeat those lines all over loop elements, because all elements are the same in width and height.
+
 3.
 
 
