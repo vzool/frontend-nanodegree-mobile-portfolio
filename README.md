@@ -1,6 +1,6 @@
 ## My optimization steps goes through the following:
 
-### [b]First[/b]: Optimization for index.html, project-2048.html, project-mobile.html & project-webperf.html:
+#### First: Optimization for index.html, project-2048.html, project-mobile.html & project-webperf.html:
 
 1. Decrease images resolution to just fit to their places dimensions in html elements document.
 2. Minify CSS, JS & HTML.
@@ -8,7 +8,7 @@
 4. Reorganize and modify some html elements and attributes as possible as [Google SpeedTest](https://developers.google.com/speed/pagespeed/insights/) recommends.
 
 
-### [b]Second[/b]: Optimization for pizza.html & main.js:
+#### Second: Optimization for pizza.html & main.js:
 1.
 2.
 3.
