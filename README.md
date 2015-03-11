@@ -1,4 +1,6 @@
-## My optimization steps goes through the following:
+# Project Solution :
+
+My optimization steps goes through two parts the following 
 
 #### First: Optimization for index.html, project-2048.html, project-mobile.html & project-webperf.html:
 
