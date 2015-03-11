@@ -11,7 +11,7 @@ My optimization steps goes through two parts in whole project
 
 
 #### Second: Optimization for pizza.html & main.js:
-1.
+1. I did anything in Second Part just like I did it in First Part too.
 2.
 3.
 
