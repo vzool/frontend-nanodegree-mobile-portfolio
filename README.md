@@ -1,6 +1,6 @@
 # Project Solution
 
-My optimization steps goes through two parts the following 
+My optimization steps goes through two parts in whole project
 
 #### First: Optimization for index.html, project-2048.html, project-mobile.html & project-webperf.html:
 
