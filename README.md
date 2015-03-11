@@ -1,4 +1,4 @@
-# Project Solution :
+# Project Solution
 
 My optimization steps goes through two parts the following 
 
