@@ -14,7 +14,6 @@ My optimization steps goes through two parts in whole project
 1. I did anything in Second Part just like I did it in First Part too.
 
 2. In changePizzaSizes function I moved three lines which are (var dx = ...), (var newwidth = ...) and (var pizzasDiv = ...) out of the loop, after these little modifications function did same actions and effects with maximum reduce in processing time.
-
 I think there is no need to repeat those lines all over the loop elements, because all elements are the same in width and height.
 
 3. Reorgnize updatePositions function in main.js as following:
@@ -22,7 +21,7 @@ I think there is no need to repeat those lines all over the loop elements, becau
 ```javascript
 
 // Moves the sliding background pizzas based on scroll position
-// pizza_items is used for cahce
+// pizza_items is used for cache
 var pizza_items = []; // [Performance BUG SOLVED] no need to repeat this line all over function call.
 function updatePositions() {
   frame++;
@@ -30,7 +29,7 @@ function updatePositions() {
 
   /****  // [Performance BUG SOLVED] no need to repeat this line all over the loop elements *****/
   // This is a sentinal for just one collect elements and cache them in pizza_items for future calls
-  if(pizza_items.length <= 0){
+  if(pizza_items.length <= 0){ // This is a sentinal for just one collect elements and cache them in pizza_items for future calls
     pizza_items = document.querySelectorAll('.mover');
   }
   var scrollTop = document.body.scrollTop;
