@@ -19,7 +19,7 @@ I think there is no need to repeat those lines all over the loop elements, becau
 
 3. Reorgnize updatePositions function in main.js as following:
 
-```javactipt
+```javascript
 
 // Moves the sliding background pizzas based on scroll position
 // pizza_items is used for cahce
