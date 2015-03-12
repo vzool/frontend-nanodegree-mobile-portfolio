@@ -7,7 +7,7 @@ My optimization steps goes through two parts in whole project
 1. Decrease images resolution to just fit to their places dimensions in html elements document.
 2. Minify CSS, JS & HTML.
 3. Compress images(PNG/JPG) with considerations of saving images quality.
-4. Reorganize and modify some HTML, CSS and JS elements and attributes as possible as [Google SpeedTest](https://developers.google.com/speed/pagespeed/insights/) recommends.
+4. Reorganize and modify some HTML, CSS and JS elements and attributes as possible as [Google PageSpeed](https://developers.google.com/speed/pagespeed/insights/) recommends.
 
 
 #### Second: Optimization for pizza.html & main.js:
@@ -17,7 +17,40 @@ My optimization steps goes through two parts in whole project
 
 I think there is no need to repeat those lines all over the loop elements, because all elements are the same in width and height.
 
-3.
+3. Reorgnize updatePositions function in main.js as following:
+
+```javactipt
+
+// Moves the sliding background pizzas based on scroll position
+// pizza_items is used for cahce
+var pizza_items = []; // [Performance BUG SOLVED] no need to repeat this line all over function call.
+function updatePositions() {
+  frame++;
+  window.performance.mark("mark_start_frame");
+
+  /****  // [Performance BUG SOLVED] no need to repeat this line all over the loop elements *****/
+  // This is a sentinal for just one collect elements and cache them in pizza_items for future calls
+  if(pizza_items.length <= 0){
+    pizza_items = document.querySelectorAll('.mover');
+  }
+  var scrollTop = document.body.scrollTop;
+  /****  // [Performance BUG SOLVED] no need to repeat this line all over the loop elements *****/
+  for (var i = 0; i < pizza_items.length; i++) {
+    var phase = Math.sin((scrollTop / 1250) + (i % 5));
+    pizza_items[i].style.left = pizza_items[i].basicLeft + 100 * phase + 'px';
+  }
+
+  // User Timing API to the rescue again. Seriously, it's worth learning.
+  // Super easy to create custom metrics.
+  window.performance.mark("mark_end_frame");
+  window.performance.measure("measure_frame_duration", "mark_start_frame", "mark_end_frame");
+  if (frame % 10 === 0) {
+    var timesToUpdatePosition = window.performance.getEntriesByName("measure_frame_duration");
+    logAverageFrame(timesToUpdatePosition);
+  }
+}
+
+```
 
 
 ## Website Performance Optimization portfolio project
