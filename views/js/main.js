@@ -407,13 +407,14 @@ var resizePizzas = function(size) {
   function changeSliderLabel(size) {
     switch(size) {
       case "1":
-        document.querySelector("#pizzaSize").innerHTML = "Small";
+        // change old querySelector with document.getElementById, because it's more fast
+        document.getElementById("pizzaSize").innerHTML = "Small";
         return;
       case "2":
-        document.querySelector("#pizzaSize").innerHTML = "Medium";
+        document.getElementById("pizzaSize").innerHTML = "Medium";
         return;
       case "3":
-        document.querySelector("#pizzaSize").innerHTML = "Large";
+        document.getElementById("pizzaSize").innerHTML = "Large";
         return;
       default:
         console.log("bug in changeSliderLabel");
@@ -422,10 +423,12 @@ var resizePizzas = function(size) {
 
   changeSliderLabel(size);
 
+  // We don't need to randomPizzas's offsetWidth, because it's the same at all conditions
+  var windowwidth = document.getElementById("randomPizzas").offsetWidth;
   // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
+
   function determineDx (elem, size) {
     var oldwidth = elem.offsetWidth;
-    var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
     var oldsize = oldwidth / windowwidth;
 
     // TODO: change to 3 sizes? no more xl?
@@ -446,12 +449,22 @@ var resizePizzas = function(size) {
     return dx;
   }
 
+  // No need to call for length every time, because length is static.
+  // So, I put out of function.
+  var pizza_items_count = document.getElementsByClassName("randomPizzaContainer").length;
+  
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
-    var dx = determineDx(document.querySelector(".randomPizzaContainer"), size); // [Performance BUG SOLVED] no need to repeat this line all over the loop elements, because all elements are the same in width and height.
-    var newwidth = (document.querySelector(".randomPizzaContainer").offsetWidth + dx) + 'px';  // [Performance BUG SOLVED] no need to repeat this line all over the loop elements, because all elements are the same in width and height.
-    for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
-      document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
+    // We don't need to call .randomPizzaContainer twice, it's one item and same item.
+    var randomPizzaContainer= document.querySelector(".randomPizzaContainer");
+    var dx = determineDx(randomPizzaContainer, size); // [Performance BUG SOLVED] no need to repeat this line all over the loop elements, because all elements are the same in width and height.
+    var newwidth = (randomPizzaContainer.offsetWidth + dx) + 'px';  // [Performance BUG SOLVED] no need to repeat this line all over the loop elements, because all elements are the same in width and height.
+
+    // This line waste a lot of time to process, because every loop it's call all .randomPizzaContainer elements
+    // So, will very better to put it out of loop
+    var temp = document.getElementsByClassName("randomPizzaContainer");
+    for (var i = 0; i < pizza_items_count; i++) {
+      temp[i].style.width = newwidth;
     }
   }
 
@@ -503,10 +516,11 @@ function updatePositions() {
 
   /****  // [Performance BUG SOLVED] no need to repeat this line all over the loop elements *****/
   if(pizza_items.length <= 0){
-    pizza_items = document.querySelectorAll('.mover');
+    pizza_items = document.getElementsByClassName('mover');
   }
-  var scrollTop = document.body.scrollTop;
+
   /****  // [Performance BUG SOLVED] no need to repeat this line all over the loop elements *****/
+  var scrollTop = document.body.scrollTop;
   for (var i = 0; i < pizza_items.length; i++) {
     var phase = Math.sin((scrollTop / 1250) + (i % 5));
     pizza_items[i].style.left = pizza_items[i].basicLeft + 100 * phase + 'px';
@@ -527,10 +541,11 @@ window.addEventListener('scroll', updatePositions);
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
-  console.log("DOMContentLoaded");
+  // console.log("DOMContentLoaded");
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 200; i++) {
+  // reduce 200 images drawn in background to 30 images only, because 30 image is so enough to fill background.
+  for (var i = 0; i < 30; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
@@ -538,7 +553,10 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    document.querySelector("#movingPizzas1").appendChild(elem);
+    // change querySelector by getElementById because  it's faster
+    // check this benchmark revision(143)
+    // https://jsperf.com/getelementbyid-vs-queryselector/143
+    document.getElementById("movingPizzas1").appendChild(elem);
   }
   updatePositions();
 });

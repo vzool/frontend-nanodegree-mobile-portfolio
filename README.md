@@ -21,17 +21,16 @@ I think there is no need to repeat those lines all over the loop elements, becau
 ```javascript
 
 // Moves the sliding background pizzas based on scroll position
-// pizza_items is used for cache
-var pizza_items = []; // [Performance BUG SOLVED] no need to repeat this line all over function call.
+var pizza_items = []; // pizza_items is used for cache
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
   /****  // [Performance BUG SOLVED] no need to repeat this line all over the loop elements *****/
-  // This is a sentinal for just one collect elements and cache them in pizza_items for future calls
-  if(pizza_items.length <= 0){ // This is a sentinal for just one collect elements and cache them in pizza_items for future calls
-    pizza_items = document.querySelectorAll('.mover');
+  if(pizza_items.length <= 0){
+    pizza_items = document.getElementsByClassName('mover');
   }
+  
   var scrollTop = document.body.scrollTop;
   /****  // [Performance BUG SOLVED] no need to repeat this line all over the loop elements *****/
   for (var i = 0; i < pizza_items.length; i++) {
@@ -50,7 +49,12 @@ function updatePositions() {
 }
 
 ```
+4. I replace document.querySelector and querySelectorAll with old school DOM objects like document.getElementById and document.getElementsByClassName which are perform very well, check these benchmark performance links for more review:
 
+- [getElementById vs querySelector](https://jsperf.com/getelementbyid-vs-queryselector/143)
+- [getElementsByClassName vs querySelectorAll](https://jsperf.com/getelementsbyclassname-vs-queryselectorall/18)
+
+5. I reduced 200 images drawn in background to 30 images only, because 30 image is so enough to fill background.
 
 ## Website Performance Optimization portfolio project
 
